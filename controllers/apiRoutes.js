@@ -2,32 +2,44 @@ const db = require('../models');
 
 module.exports = (app) => {
   app.get('/products', (request, response) => {
-    db.Product.findAll().then((data) => {
+    db.Product.findAll({
+      include: [{ model: db.Company }, { model: db.ProductType }]
+    }).then((data) => {
       response.json(data);
     })
   })
 
   app.get('/products/free_shipping', (request, response) => {
-    db.Product.findAll({where: {shipping: 0}}).then((data) => {
+    db.Product.findAll({
+      where: {shipping: 0},
+      include: [{ model: db.Company }, { model: db.ProductType }]
+    }).then((data) => {
       response.json(data);
     })
   })
 
   app.get('/product/:name', (request, response) => {
-    db.Product.findOne({where: {name: request.params.name}}).then((data) => {
+    db.Product.findOne({
+      where: {name: request.params.name},
+      include: [{ model: db.Company }, { model: db.ProductType }]
+    }).then((data) => {
       response.json(data);
     })
   })
 
   app.get('/products/category/:category', (request, response) => {
-    db.Product.findAll({where:
-      {category: request.params.category}}).then((data) => {
+    db.Product.findAll({
+      where: {category: request.params.category},
+      include: [{ model: db.Company }, { model: db.ProductType }]
+    }).then((data) => {
       response.json(data);
     })
   })
 
   app.get('/products/expensive', (request, response) => {
-    db.Product.findAll({order: [
+    db.Product.findAll({
+      include: [{ model: db.Company }, { model: db.ProductType }],
+      order: [
       ['price', 'DESC']
     ]}).then((data) => {
       response.json(data);
