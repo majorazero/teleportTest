@@ -173,17 +173,17 @@ const products = [
   },
 ]
 
-productTypes.forEach((prod) => {
-  db.ProductType.create({
-    name: prod
-  })
-})
-
-companies.forEach((company) => {
-  db.Company.create({
-    name: company
-  })
-})
+//productTypes.forEach((prod) => {
+//  db.ProductType.create({
+//    name: prod
+//  })
+//})
+//
+//companies.forEach((company) => {
+//  db.Company.create({
+//    name: company
+//  })
+//})
 
 products.forEach((product) => {
   db.Company.findOne({name: product.company}).then((company) => {
